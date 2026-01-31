@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bjnxxw8haxcuj"]
+
+[ext_resource type="Script" uid="uid://66gr14ywq5gw" path="res://Scripts/detective.gd" id="1_5vuio"]
+[ext_resource type="PackedScene" uid="uid://b80h8gpmfcm3h" path="res://Scenes/icon_bubble.tscn" id="2_8u120"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_64dh4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_86f0a"]
+
+[node name="Detective" type="CharacterBody2D" unique_id=594747557 groups=["enemy"]]
+script = ExtResource("1_5vuio")
+
+[node name="BodySprite" type="Sprite2D" parent="." unique_id=78904581]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2016364008]
+shape = SubResource("CircleShape2D_64dh4")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=758081272]
+
+[node name="CatchArea" type="Area2D" parent="." unique_id=1378431947]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CatchArea" unique_id=2106278802]
+shape = SubResource("CircleShape2D_86f0a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2045264425]
+
+[node name="RecalculateTimer" type="Timer" parent="." unique_id=1663953320]
+wait_time = 0.1
+autostart = true
+
+[node name="IconBubble" parent="." unique_id=1086847967 groups=["enemy"] instance=ExtResource("2_8u120")]

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b80h8gpmfcm3h"]
+
+[ext_resource type="Script" uid="uid://dvo34u4w4ka7n" path="res://Scripts/icon_bubble.gd" id="1_s7rth"]
+[ext_resource type="Texture2D" uid="uid://0xl56bauseqw" path="res://Resources/Art/UI/speechBubble.png" id="2_w0i2w"]
+
+[node name="IconBubble" type="Node2D" unique_id=1086847967]
+script = ExtResource("1_s7rth")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1586073036]
+texture = ExtResource("2_w0i2w")
+
+[node name="Content" type="Node2D" parent="." unique_id=391220870]
+
+[node name="MaskNPC" type="Sprite2D" parent="Content" unique_id=570606147]
+
+[node name="Arrow" type="Sprite2D" parent="Content" unique_id=1515317092]
+
+[node name="MaskPlayer" type="Sprite2D" parent="Content" unique_id=769786966]
+
+[node name="EmoteIcon" type="Sprite2D" parent="Content" unique_id=1904734487]

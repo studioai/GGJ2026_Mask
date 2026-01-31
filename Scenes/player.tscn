@@ -101,7 +101,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
 radius = 8.0
 
-[node name="Player" type="CharacterBody2D" unique_id=247806807]
+[node name="Player" type="CharacterBody2D" unique_id=247806807 groups=["player"]]
 y_sort_enabled = true
 script = ExtResource("1_v0iea")
 
@@ -129,3 +129,6 @@ position_smoothing_speed = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone" unique_id=65292793]
 shape = SubResource("CircleShape2D_cvnsp")
+
+[connection signal="body_entered" from="InteractionZone" to="." method="_on_interaction_zone_body_entered"]
+[connection signal="body_exited" from="InteractionZone" to="." method="_on_interaction_zone_body_exited"]
