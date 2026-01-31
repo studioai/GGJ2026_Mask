@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cqafg7f08de6q"]
+
+[ext_resource type="Script" uid="uid://1xkhfplp2aic" path="res://Scripts/npc.gd" id="1_acqhf"]
+[ext_resource type="Texture2D" uid="uid://bx2v1a3b0ulir" path="res://Resources/Art/Player/Swordsman_lvl1_Walk_with_shadow.png" id="2_xxsvc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_acqhf"]
+radius = 4.0
+
+[node name="NPC" type="CharacterBody2D" unique_id=437939631]
+script = ExtResource("1_acqhf")
+
+[node name="BodySprite" type="Sprite2D" parent="." unique_id=1940375274]
+texture = ExtResource("2_xxsvc")
+offset = Vector2(0, -10)
+hframes = 6
+vframes = 4
+
+[node name="MaskSprite" type="Sprite2D" parent="BodySprite" unique_id=292851693]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2076957378]
+shape = SubResource("CircleShape2D_acqhf")
