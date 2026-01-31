@@ -1,9 +1,35 @@
 [gd_scene format=3 uid="uid://l2iqjnmpk4ex"]
 
 [ext_resource type="PackedScene" uid="uid://lnwymddasp3o" path="res://Scenes/player.tscn" id="1_k0dl8"]
+[ext_resource type="PackedScene" uid="uid://bjnxxw8haxcuj" path="res://Scenes/detective.tscn" id="1_s221r"]
+[ext_resource type="PackedScene" uid="uid://cqafg7f08de6q" path="res://Scenes/npc.tscn" id="2_3gk40"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3gk40"]
+vertices = PackedVector2Array(206.11719, 84.82031, -62.40625, 80.1875, -42.390625, -53, 207.86719, -53)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-51, -63, 218, -63, 216, 95, -74, 90)])
 
 [node name="TestStage" type="Node2D" unique_id=584188770]
 
-[node name="Player" parent="." unique_id=275044490 instance=ExtResource("1_k0dl8")]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=286576629]
+navigation_polygon = SubResource("NavigationPolygon_3gk40")
 
-[editable path="Player"]
+[node name="Detective" parent="NavigationRegion2D" unique_id=594747557 instance=ExtResource("1_s221r")]
+position = Vector2(188, -26)
+
+[node name="Player" parent="NavigationRegion2D" unique_id=275044490 instance=ExtResource("1_k0dl8")]
+position = Vector2(-15, 44)
+
+[node name="NPC" parent="NavigationRegion2D" unique_id=437939631 instance=ExtResource("2_3gk40")]
+position = Vector2(102, -1)
+is_receptionist = true
+
+[node name="NPC2" parent="NavigationRegion2D" unique_id=2019064897 instance=ExtResource("2_3gk40")]
+position = Vector2(39, 61)
+mask_row = 4
+desired_mask_row = 0
+
+[node name="NPC3" parent="NavigationRegion2D" unique_id=1850796335 instance=ExtResource("2_3gk40")]
+position = Vector2(171, 65)
+mask_row = 4
+desired_mask_row = 4

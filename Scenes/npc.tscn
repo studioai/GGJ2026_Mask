@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://1xkhfplp2aic" path="res://Scripts/npc.gd" id="1_acqhf"]
 [ext_resource type="Texture2D" uid="uid://7kxm4f11ekkt" path="res://Resources/Art/NPC/NPC000.png" id="2_xxsvc"]
 [ext_resource type="PackedScene" uid="uid://b80h8gpmfcm3h" path="res://Scenes/icon_bubble.tscn" id="3_g6unj"]
+[ext_resource type="Texture2D" uid="uid://bic00xnd4p8hr" path="res://Resources/Art/Mask/mask_merged.png" id="3_h1ryf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_acqhf"]
 radius = 4.0
@@ -16,8 +17,14 @@ offset = Vector2(0, -10)
 hframes = 4
 
 [node name="MaskSprite" type="Sprite2D" parent="BodySprite" unique_id=292851693]
+position = Vector2(-2, -13.000002)
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("3_h1ryf")
+hframes = 4
+vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2076957378]
 shape = SubResource("CircleShape2D_acqhf")
 
-[node name="IconBubble" parent="." unique_id=1086847967 groups=["npc"] instance=ExtResource("3_g6unj")]
+[node name="IconBubble" parent="." unique_id=1086847967 instance=ExtResource("3_g6unj")]
+position = Vector2(8, -32)
