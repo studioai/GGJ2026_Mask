@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cas7inv4ctgd7"
-path="res://.godot/imported/yaoya.png-7747accc06e061d01ce3694d6c422feb.ctex"
+uid="uid://ec673w0rk6u8"
+path="res://.godot/imported/yaoya_.png-4c82afea175a3ad38a4d4f6f056ef72b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Mask/yaoya.png"
-dest_files=["res://.godot/imported/yaoya.png-7747accc06e061d01ce3694d6c422feb.ctex"]
+source_file="res://Resources/Art/Mask/yaoya_.png"
+dest_files=["res://.godot/imported/yaoya_.png-4c82afea175a3ad38a4d4f6f056ef72b.ctex"]
 
 [params]
 

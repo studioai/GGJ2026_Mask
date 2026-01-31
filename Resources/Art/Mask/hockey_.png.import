@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3mhrtrw8tvk4"
-path="res://.godot/imported/badcold.png-28b70905c75b25b5dc6aa7d3b793430e.ctex"
+uid="uid://b0yc5vbqemgek"
+path="res://.godot/imported/hockey_.png-cce44fead281b9f86eda0a56485fc6c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Mask/badcold.png"
-dest_files=["res://.godot/imported/badcold.png-28b70905c75b25b5dc6aa7d3b793430e.ctex"]
+source_file="res://Resources/Art/Mask/hockey_.png"
+dest_files=["res://.godot/imported/hockey_.png-cce44fead281b9f86eda0a56485fc6c4.ctex"]
 
 [params]
 
