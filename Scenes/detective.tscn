@@ -2,20 +2,28 @@
 
 [ext_resource type="Script" uid="uid://66gr14ywq5gw" path="res://Scripts/detective.gd" id="1_5vuio"]
 [ext_resource type="PackedScene" uid="uid://b80h8gpmfcm3h" path="res://Scenes/icon_bubble.tscn" id="2_8u120"]
+[ext_resource type="Texture2D" uid="uid://bx2v1a3b0ulir" path="res://Resources/Art/Player/Swordsman_lvl1_Walk_with_shadow.png" id="2_dmdfp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_64dh4"]
+radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_86f0a"]
+radius = 8.0
 
 [node name="Detective" type="CharacterBody2D" unique_id=594747557 groups=["enemy"]]
 script = ExtResource("1_5vuio")
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=78904581]
+texture = ExtResource("2_dmdfp")
+offset = Vector2(0, -10)
+hframes = 6
+vframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2016364008]
 shape = SubResource("CircleShape2D_64dh4")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=758081272]
+debug_enabled = true
 
 [node name="CatchArea" type="Area2D" parent="." unique_id=1378431947]
 
@@ -29,3 +37,4 @@ wait_time = 0.1
 autostart = true
 
 [node name="IconBubble" parent="." unique_id=1086847967 groups=["enemy"] instance=ExtResource("2_8u120")]
+position = Vector2(8, -32)

@@ -1,36 +1,55 @@
 extends CharacterBody2D
 class_name Detective
 
-# AI 상태 관리
 enum State { INVESTIGATE, CHASE }
 var current_state = State.INVESTIGATE
 
-@export var speed = 190.0
+@export var speed = 20.0
 var target_mask_id: int = -1
 var current_target: Node2D = null
+var is_busy: bool = false 
 
-# 노드 참조
+# 심문 끝난 NPC 목록
+var ignored_npcs: Array = [] 
+
 @onready var nav_agent = $NavigationAgent2D
 @onready var body_sprite = $BodySprite
 @onready var catch_area = $CatchArea
 @onready var recalculate_timer = $RecalculateTimer
 @onready var animation_player = $AnimationPlayer
-
-# 통합된 말풍선 UI
 @onready var icon_bubble = $IconBubble
 
 func _ready():
-	# 1. 사건 현장(접수원)으로 출발
-	find_receptionist()
-	
-	# 타이머 및 영역 시그널 연결
 	recalculate_timer.timeout.connect(_on_recalculate_timer_timeout)
 	catch_area.body_entered.connect(_on_catch_area_body_entered)
+	
+	await get_tree().physics_frame
+	
+	var player = get_tree().get_first_node_in_group("player")
+	if player and player.current_mask_row == -1:
+		current_state = State.CHASE
+		target_mask_id = -1 
+		current_target = player
+	else:
+		current_state = State.INVESTIGATE
+		find_receptionist()
+	
+	_on_recalculate_timer_timeout()
+	recalculate_timer.start()
 
 func _physics_process(_delta):
-	# 도착했거나 대화 중(velocity가 0)일 때 애니메이션 정지
-	if nav_agent.is_navigation_finished() or velocity.length() < 10:
+	if is_busy or current_target == null:
 		animation_player.stop()
+		return
+
+	if nav_agent.is_navigation_finished():
+		velocity = Vector2.ZERO
+		move_and_slide()
+		animation_player.stop()
+		
+		if is_instance_valid(current_target):
+			if global_position.distance_to(current_target.global_position) < 50:
+				_arrive_at_target(current_target)
 		return
 
 	var next_path_position = nav_agent.get_next_path_position()
@@ -38,7 +57,11 @@ func _physics_process(_delta):
 	
 	velocity = new_velocity
 	move_and_slide()
-	_update_animation(new_velocity)
+	
+	if velocity.length() > 10:
+		_update_animation(new_velocity)
+	else:
+		animation_player.stop()
 
 func _update_animation(dir: Vector2):
 	if abs(dir.x) > abs(dir.y):
@@ -48,17 +71,32 @@ func _update_animation(dir: Vector2):
 		if dir.y > 0: animation_player.play("walk_down")
 		else: animation_player.play("walk_up")
 
-# --- AI 탐색 및 추적 ---
+# --- AI 로직 ---
 
 func _on_recalculate_timer_timeout():
+	if is_busy: return 
+
 	match current_state:
 		State.INVESTIGATE:
 			if is_instance_valid(current_target):
 				nav_agent.target_position = current_target.global_position
+			else:
+				find_receptionist()
+				
 		State.CHASE:
 			find_closest_suspect()
+			
 			if is_instance_valid(current_target):
 				nav_agent.target_position = current_target.global_position
+			else:
+				# 타겟 소실 -> 접수원 복귀
+				print("형사: 타겟 소실! 접수원에게 이동")
+				current_state = State.INVESTIGATE
+				ignored_npcs.clear()
+				
+				find_receptionist()
+				if current_target:
+					nav_agent.target_position = current_target.global_position
 
 func find_receptionist():
 	var npcs = get_tree().get_nodes_in_group("npc")
@@ -71,15 +109,22 @@ func find_closest_suspect():
 	var potential_targets = []
 	var player = get_tree().get_first_node_in_group("player")
 	
-	# 타겟 가면을 쓴 플레이어/NPC 수집
-	if player and player.current_mask_row == target_mask_id:
-		potential_targets.append(player)
+	if player:
+		if player.current_mask_row == target_mask_id or player.current_mask_row == -1:
+			potential_targets.append(player)
 	
-	for npc in get_tree().get_nodes_in_group("npc"):
-		if npc.mask_row == target_mask_id:
-			potential_targets.append(npc)
+	for node in get_tree().get_nodes_in_group("npc"):
+		# [수정] 접수원은 용의자 목록에서 제외 (정보원 역할만 함)
+		if node.get("is_receptionist") == true:
+			continue
+
+		if node in ignored_npcs:
+			continue
+		
+		if "mask_row" in node:
+			if node.mask_row == target_mask_id:
+				potential_targets.append(node)
 	
-	# 가장 가까운 대상 선정
 	var nearest_dist = INF
 	var nearest_node = null
 	for t in potential_targets:
@@ -89,74 +134,88 @@ func find_closest_suspect():
 			nearest_node = t
 	current_target = nearest_node
 
-# --- 🔍 수사 및 심문 연출 (통합 UI 사용) ---
+# --- [이벤트] 도착 처리 ---
 
 func _on_catch_area_body_entered(body):
-	if body == current_target:
-		# 즉시 정지
-		nav_agent.target_position = global_position
-		velocity = Vector2.ZERO
-		animation_player.stop()
+	_arrive_at_target(body)
 
-		# ==========================================
-		# [상황 A] 접수원 탐문 (공손하게 시작)
-		# ==========================================
-		if current_state == State.INVESTIGATE and body.get("is_receptionist"):
-			# 형사: [?] (정보 요청)
-			icon_bubble.show_detective_chat("emote", 0) 
+func _arrive_at_target(body):
+	if is_busy or body != current_target: return
+	
+	is_busy = true 
+	nav_agent.target_position = global_position
+	velocity = Vector2.ZERO
+	animation_player.stop()
+
+	# [상황 A] 접수원 (간소화 시퀀스)
+	if current_state == State.INVESTIGATE and body.get("is_receptionist"):
+		icon_bubble.show_detective_chat("emote", 1) # ?
+		await get_tree().create_timer(1.5).timeout
+		
+		if body.has_method("get_handed_mask_info"):
+			var new_target = body.get_handed_mask_info()
+			
+			if target_mask_id != new_target:
+				ignored_npcs.clear()
+				target_mask_id = new_target
+			
+			if body.has_node("IconBubble"):
+				body.get_node("IconBubble").show_detective_chat("mask", target_mask_id)
 			await get_tree().create_timer(1.5).timeout
 			
-			if body.has_method("get_handed_mask_info"):
-				target_mask_id = body.get_handed_mask_info()
-				
-				# 접수원: [가면 아이콘] (이걸 줬어요)
-				if body.has_node("IconBubble"):
-					body.get_node("IconBubble").show_detective_chat("mask", target_mask_id)
-				await get_tree().create_timer(1.5).timeout
-				
-				# 형사: [!] (확인 완료)
-				icon_bubble.show_detective_chat("emote", 1)
-				await get_tree().create_timer(1.0).timeout
-				
-				current_state = State.CHASE
-				current_target = null
+			current_state = State.CHASE
+			current_target = null
+			_on_recalculate_timer_timeout()
 
-		# ==========================================
-		# [상황 B] 용의자 추격 및 심문
-		# ==========================================
-		elif current_state == State.CHASE:
-			# 1. 형사: [!] (잡았다!)
-			icon_bubble.show_detective_chat("emote", 1)
-			await get_tree().create_timer(1.0).timeout
+	# [상황 B] 용의자 체포/심문
+	elif current_state == State.CHASE:
+		# [수정] 접수원은 추격 대상이 아니므로 무시 (중복 심문 방지)
+		if body.get("is_receptionist") == true:
+			is_busy = false
+			return
+
+		# 1. 공통: 발견(!)
+		icon_bubble.show_detective_chat("emote", 0) # !
+		await get_tree().create_timer(1.0).timeout
+		
+		if body.is_in_group("player"):
+			print("검거 완료!")
+			get_tree().paused = true
+			return
 			
-			# 진짜 범인(플레이어)일 경우
-			if body.is_in_group("player"):
-				get_tree().paused = true # 게임 오버 처리
-				return
-				
-			# 억울한 NPC일 경우 (정보 갱신)
-			elif body.is_in_group("npc"):
-				# 2. NPC: [X] (저 아니에요!)
-				if body.has_node("IconBubble"):
-					body.get_node("IconBubble").show_detective_chat("emote", 2) 
-				await get_tree().create_timer(1.5).timeout
-				
-				# 3. 형사: [가면] + [?] (그럼 범인은 지금 무슨 가면이지?)
+		elif body.is_in_group("npc"):
+			# 2. 공통: 억울함(X)
+			if body.has_node("IconBubble"):
+				body.get_node("IconBubble").show_detective_chat("emote", 2) # X
+			await get_tree().create_timer(1.5).timeout
+			
+			var new_info = -1
+			if body.has_method("snitch_on_player"):
+				new_info = body.snitch_on_player()
+			
+			# ---------------------------------------------------------
+			# [분기점] 플레이어와 거래한 적이 있는가?
+			# ---------------------------------------------------------
+			if new_info != -1 and new_info != target_mask_id:
+				# >> [풀 시퀀스]
 				icon_bubble.show_detective_chat("inquiry", target_mask_id)
 				await get_tree().create_timer(1.5).timeout
 				
-				# 4. NPC의 새로운 제보
-				if body.has_method("snitch_on_player"):
-					target_mask_id = body.snitch_on_player()
-					
-					# NPC: [새로운 가면] (범인은 이걸 썼어요!)
-					if body.has_node("IconBubble"):
-						body.get_node("IconBubble").show_detective_chat("mask", target_mask_id)
-					await get_tree().create_timer(2.0).timeout
-					
-					# 5. 형사: [!] (알았다! 재추격!)
-					icon_bubble.show_detective_chat("emote", 1)
+				if body.has_node("IconBubble"):
+					body.get_node("IconBubble").show_detective_chat("mask", new_info)
+				await get_tree().create_timer(2.0).timeout
 				
-				# 재추격 시작
-				current_target = null
-				recalculate_timer.start(0.5)
+				icon_bubble.show_detective_chat("emote", 0) 
+				
+				target_mask_id = new_info
+				ignored_npcs.clear()
+				print("새로운 정보 획득! 타겟 변경: ", target_mask_id)
+				
+			else:
+				# >> [간략화 시퀀스]
+				ignored_npcs.append(body)
+			
+			current_target = null
+			recalculate_timer.start(0.5)
+	
+	is_busy = false

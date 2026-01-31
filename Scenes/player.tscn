@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://rwtibr7yaofx" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://bx2v1a3b0ulir" path="res://Resources/Art/Player/Swordsman_lvl1_Walk_with_shadow.png" id="2_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://bic00xnd4p8hr" path="res://Resources/Art/Mask/mask_merged.png" id="3_6t5aa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f60y1"]
 radius = 4.0
@@ -112,6 +113,11 @@ hframes = 6
 vframes = 4
 
 [node name="MaskSprite" type="Sprite2D" parent="BodySprite" unique_id=741142177]
+position = Vector2(-1, -10.999999)
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("3_6t5aa")
+hframes = 4
+vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=488970445]
 shape = SubResource("CircleShape2D_f60y1")
