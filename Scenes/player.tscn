@@ -107,17 +107,19 @@ y_sort_enabled = true
 script = ExtResource("1_v0iea")
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=79946255]
+scale = Vector2(0.025, 0.025)
 texture = ExtResource("2_6t5aa")
-offset = Vector2(0, -10)
+offset = Vector2(0, -550)
 hframes = 3
 vframes = 4
 
 [node name="MaskSprite" type="Sprite2D" parent="BodySprite" unique_id=741142177]
-position = Vector2(-1, -10.999999)
-scale = Vector2(0.025, 0.025)
+position = Vector2(0, -880)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_6t5aa")
 hframes = 4
 vframes = 11
+frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=488970445]
 shape = SubResource("CircleShape2D_f60y1")

@@ -98,17 +98,17 @@ _data = {
 &"RESET": SubResource("Animation_w7bri"),
 &"walk_down": SubResource("Animation_k7jnt"),
 &"walk_left": SubResource("Animation_ufg76"),
-&"walk_rigjht": SubResource("Animation_i3i3l"),
+&"walk_right": SubResource("Animation_i3i3l"),
 &"walk_up": SubResource("Animation_ooixp")
 }
 
 [node name="Detective" type="CharacterBody2D" unique_id=594747557 groups=["enemy"]]
 script = ExtResource("1_5vuio")
-speed = null
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=78904581]
+scale = Vector2(0.025, 0.025)
 texture = ExtResource("2_dmdfp")
-offset = Vector2(0, -10)
+offset = Vector2(0, -550)
 hframes = 3
 vframes = 4
 
@@ -132,4 +132,4 @@ wait_time = 0.1
 autostart = true
 
 [node name="IconBubble" parent="." unique_id=1086847967 groups=["enemy"] instance=ExtResource("2_8u120")]
-position = Vector2(8, -32)
+position = Vector2(0, -32)
