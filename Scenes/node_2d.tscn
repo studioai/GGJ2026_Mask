@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://hug6nnb8yyxr"]
+[gd_scene format=4 uid="uid://b53ojyhemuvnf"]
 
 [ext_resource type="PackedScene" uid="uid://d1kgc6ofj06hy" path="res://Scenes/stage_template.tscn" id="1_hh5uf"]
 [ext_resource type="Texture2D" uid="uid://cj2vd5845jp68" path="res://Resources/Art/MapTile/Yokan/youkan_B.png" id="2_6whob"]
