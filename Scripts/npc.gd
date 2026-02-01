@@ -1,3 +1,4 @@
+@tool
 extends CharacterBody2D
 
 signal receptionist_handed_mask # 형사 호출용 신호
@@ -5,22 +6,35 @@ signal receptionist_handed_mask # 형사 호출용 신호
 # [설정] 1~20 사이의 값만 허용
 @export_range(1, 20) var mask_row: int = 1:
 	set(value):
-		if value <= 0: mask_row = 1
-		else: mask_row = value
-		if Engine.is_editor_hint() and has_method("update_texture"):
-			call("update_texture")
+		var new_val = 1
+		if value > 0: new_val = value
+		
+		if mask_row != new_val:
+			mask_row = new_val
+			if is_node_ready():
+				update_texture()
+				update_bubble_ui()
 
 @export_range(1, 20) var desired_mask_row: int = 2:
 	set(value):
-		if value <= 0: desired_mask_row = 1
-		else: desired_mask_row = value
+		var new_val = 1
+		if value > 0: new_val = value
+		
+		if desired_mask_row != new_val:
+			desired_mask_row = new_val
+			if is_node_ready():
+				update_bubble_ui()
 
-@export var is_receptionist: bool = false
+@export var is_receptionist: bool = false:
+	set(value):
+		is_receptionist = value
+		if is_node_ready():
+			update_texture()
+			update_bubble_ui()
 
-@onready var sprite = $Sprite2D
+# [중요] 노드 이름은 MaskSprite
+@onready var sprite = $BodySprite/MaskSprite
 @onready var icon_bubble = $IconBubble
-
-# interaction_area 관련 변수 삭제 (플레이어 InteractionZone 사용)
 
 var nearby_player = null
 var reception_finished = false
@@ -29,69 +43,47 @@ var traded_player_mask_history: int = -1
 func _ready():
 	if mask_row <= 0: mask_row = 1
 	if desired_mask_row <= 0: desired_mask_row = 1
-	update_texture()
 	
-	# 시작할 때 한 번 호출
+	update_texture()
+	# 시작 시 UI 상태 업데이트
 	update_bubble_ui()
 
-# [삭제됨] _process 함수는 더 이상 필요 없습니다! (버그의 원인)
-
+# --- [수정 1] 외형 업데이트: 접수원은 가면 숨기기 ---
 func update_texture():
-	if sprite:
+	if not sprite: return
+	
+	if is_receptionist:
+		# 접수원은 가면을 쓰지 않음 (숨김 처리)
+		sprite.visible = false
+	else:
+		# 일반 NPC는 가면을 씀
+		sprite.visible = true
 		sprite.frame = mask_row * 4 
 
-# --- 플레이어(player.gd)가 호출하는 이벤트 함수들 ---
-
-# 플레이어가 영역에 들어왔을 때
-func on_player_entered(player_node):
-	nearby_player = player_node
-	update_bubble_ui() # [추가] 입장 시 1회 갱신
-
-# 플레이어가 영역에서 나갔을 때
-func on_player_exited():
-	nearby_player = null
-	if icon_bubble:
-		icon_bubble.hide_bubble()
-
-# 접수원 업무 완료 처리
-func complete_reception():
-	if is_receptionist and not reception_finished:
-		print("접수원: 가면 지급 완료")
-		reception_finished = true
-		receptionist_handed_mask.emit()
-		update_bubble_ui() # [추가] 상태 변경 시 갱신
-
-# 범인의 가면 기억
-func remember_criminal_mask(mask_id: int):
-	traded_player_mask_history = mask_id
-	update_texture()
-	update_bubble_ui() # [추가] 가면 교환 후 갱신
-
-# 플레이어가 상호작용 시도 (직접 호출될 경우를 대비)
-func interact(player):
-	# player.gd가 로직을 처리하고 complete_reception이나 remember_criminal_mask를 부르겠지만,
-	# 만약 npc.gd 내부에서 처리해야 할 로직이 있다면 여기서 update_bubble_ui()를 호출해야 함.
-	# 현재 구조상 player.gd가 주도하므로, 위 함수들(complete_..., remember_...)에서 UI 갱신하면 충분함.
-	pass
-
-# --- UI 로직 ---
-
+# --- UI 업데이트 로직 ---
 func update_bubble_ui():
 	if not icon_bubble: return 
 	
-	# 에디터 모드
+	# 표시할 가면 ID 결정
+	var display_mask_id = 0
+	if is_receptionist:
+		display_mask_id = mask_row
+	else:
+		display_mask_id = desired_mask_row
+	
+	# 1. 에디터 모드
 	if Engine.is_editor_hint():
-		var show_mask = desired_mask_row if not is_receptionist else mask_row
-		icon_bubble.show_detective_chat("mask", show_mask, 0) 
+		icon_bubble.show_detective_chat("mask", display_mask_id, 0) 
 		return
 
-	# 거래 완료시 숨김
+	# 2. 거래 완료시 숨김 (영구적)
 	if reception_finished or (not is_receptionist and mask_row == desired_mask_row):
 		icon_bubble.hide_bubble()
 		return
 	
-	# 플레이어가 근처에 있을 때
+	# 3. 플레이어와의 상호작용 상태에 따른 표시
 	if nearby_player:
+		# 교환 조건 체크
 		var can_trade = false
 		if is_receptionist:
 			can_trade = true
@@ -99,15 +91,44 @@ func update_bubble_ui():
 			can_trade = true
 			
 		if can_trade:
+			# 교환 가능 UI 표시
 			icon_bubble.show_trade_ui(mask_row, nearby_player.current_mask_row, is_receptionist)
 		else:
-			icon_bubble.show_detective_chat("mask", desired_mask_row, 0)
+			# 조건 불충족 시: 원래 상태(원하는 가면) 유지
+			icon_bubble.show_detective_chat("mask", display_mask_id, 0)
 	else:
-		# 멀리 있을 때: 원하는 가면 표시
-		var show_mask = desired_mask_row if not is_receptionist else mask_row
-		icon_bubble.show_detective_chat("mask", show_mask, 0)
+		# [핵심] 플레이어가 멀어졌을 때: 숨기지 않고 원래 상태(원하는 가면) 표시
+		icon_bubble.show_detective_chat("mask", display_mask_id, 0)
 
-# --- 형사(Detective)가 호출하는 함수들 ---
+# --- 플레이어 이벤트 함수들 ---
+
+func on_player_entered(player_node):
+	nearby_player = player_node
+	update_bubble_ui()
+
+# --- [수정 2] 플레이어가 나갔을 때: 말풍선 숨기지 말고 갱신 ---
+func on_player_exited():
+	nearby_player = null
+	# 버그 원인: icon_bubble.hide_bubble() 삭제함
+	# 해결: update_bubble_ui()를 호출하여 'else' 블록(원래 상태 표시)으로 가게 함
+	update_bubble_ui()
+
+func complete_reception():
+	if is_receptionist and not reception_finished:
+		print("접수원: 가면 지급 완료")
+		reception_finished = true
+		receptionist_handed_mask.emit()
+		update_bubble_ui()
+
+func remember_criminal_mask(mask_id: int):
+	traded_player_mask_history = mask_id
+	update_texture() 
+	update_bubble_ui()
+
+func interact(player):
+	pass
+
+# --- 형사 상호작용 ---
 
 func snitch_on_player() -> int:
 	return traded_player_mask_history
