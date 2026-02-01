@@ -227,7 +227,7 @@ func _arrive_at_target(body):
 		# [플레이어 검거]
 		if body.is_in_group("player"):
 			print("검거 완료! -> 게임 오버")
-			GameManager.trigger_game_over()
+ssssssssssssssssssss			GameManager.trigger_game_over()
 			return
 			
 		# [NPC 심문]
