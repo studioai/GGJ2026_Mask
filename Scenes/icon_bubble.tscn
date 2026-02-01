@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bic00xnd4p8hr" path="res://Resources/Art/Mask/mask_merged.png" id="3_s0jkd"]
 [ext_resource type="Texture2D" uid="uid://bh7q7kqufv86p" path="res://Resources/Art/UI/emote.png" id="4_1j7in"]
 [ext_resource type="Texture2D" uid="uid://bc0k2cqvv0bjb" path="res://Resources/Art/UI/ya_.png" id="4_6htga"]
+[ext_resource type="Texture2D" uid="uid://bj58ak0u07lw0" path="res://Resources/Art/UI/AE_button.png" id="6_v8u36"]
 
 [node name="IconBubble" type="Node2D" unique_id=1086847967]
 z_index = 10
@@ -22,7 +23,7 @@ position = Vector2(9, -15)
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("3_s0jkd")
 hframes = 4
-vframes = 7
+vframes = 8
 
 [node name="Arrow" type="Sprite2D" parent="Content" unique_id=1515317092]
 scale = Vector2(0.01, 0.01)
@@ -32,27 +33,15 @@ texture = ExtResource("4_6htga")
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("3_s0jkd")
 hframes = 4
-vframes = 7
+vframes = 8
 
 [node name="EmoteIcon" type="Sprite2D" parent="Content" unique_id=1904734487]
 scale = Vector2(0.013, 0.013)
 texture = ExtResource("4_1j7in")
 hframes = 3
 
-[node name="KeyLabel" type="Label" parent="Content" unique_id=583516072]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -19.0
-offset_top = -5.0
-offset_right = 21.0
-offset_bottom = 18.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 3
-text = "[A]"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="InputIcon" type="Sprite2D" parent="Content" unique_id=1179970423]
+position = Vector2(1, 7)
+scale = Vector2(0.006, 0.006)
+texture = ExtResource("6_v8u36")
+hframes = 2
