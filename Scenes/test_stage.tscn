@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://lnwymddasp3o" path="res://Scenes/player.tscn" id="1_k0dl8"]
 [ext_resource type="PackedScene" uid="uid://bjnxxw8haxcuj" path="res://Scenes/detective.tscn" id="1_s221r"]
 [ext_resource type="PackedScene" uid="uid://cqafg7f08de6q" path="res://Scenes/npc.tscn" id="2_3gk40"]
-[ext_resource type="PackedScene" uid="uid://f1ja23kagt2x" path="res://Scenes/GoalArea.tscn" id="4_qm2tv"]
+[ext_resource type="PackedScene" uid="uid://f1ja23kagt2x" path="res://Scenes/goalArea.tscn" id="4_qm2tv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3gk40"]
 vertices = PackedVector2Array(206.11719, 84.82031, -62.40625, 80.1875, -42.390625, -53, 207.86719, -53)
@@ -23,12 +23,13 @@ position = Vector2(-15, 44)
 
 [node name="NPC" parent="NavigationRegion2D" unique_id=437939631 instance=ExtResource("2_3gk40")]
 position = Vector2(102, -1)
+mask_row = 2
 is_receptionist = true
 
 [node name="NPC2" parent="NavigationRegion2D" unique_id=2019064897 instance=ExtResource("2_3gk40")]
 position = Vector2(39, 61)
-mask_row = 2
-desired_mask_row = 1
+mask_row = 4
+desired_mask_row = 3
 
 [node name="NPC3" parent="NavigationRegion2D" unique_id=1850796335 instance=ExtResource("2_3gk40")]
 position = Vector2(171, 65)
