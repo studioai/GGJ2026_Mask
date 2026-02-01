@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://f1ja23kagt2x"]
 
 [ext_resource type="Script" uid="uid://clu768q252sd6" path="res://Scripts/goal_area.gd" id="1_fi2f2"]
-[ext_resource type="Texture2D" uid="uid://v0euxw74kfqj" path="res://icon.svg" id="1_s1w1r"]
+[ext_resource type="Texture2D" uid="uid://y403yimg7kig" path="res://Resources/Art/MapTile/exit.png" id="2_ff3g0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkpwk"]
+size = Vector2(30, 40)
 
 [node name="GoalArea" type="Area2D" unique_id=551947311]
 script = ExtResource("1_fi2f2")
@@ -12,5 +13,5 @@ script = ExtResource("1_fi2f2")
 shape = SubResource("RectangleShape2D_vkpwk")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=413690511]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_s1w1r")
+scale = Vector2(0.063, 0.063)
+texture = ExtResource("2_ff3g0")
