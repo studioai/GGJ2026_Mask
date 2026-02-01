@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cuyknnc6bt3ic"]
+
+[ext_resource type="Script" uid="uid://6dwc3dbggcdi" path="res://Scripts/hud.gd" id="1_e0onf"]
+[ext_resource type="Texture2D" uid="uid://b01s3xnr888t0" path="res://Resources/Art/UI/map_icon1.png" id="2_bjfho"]
+[ext_resource type="Texture2D" uid="uid://cnxwoefjwy2qg" path="res://Resources/Art/UI/map_icon2.png" id="3_6fbih"]
+
+[node name="HUD" type="CanvasLayer" unique_id=895827447]
+script = ExtResource("1_e0onf")
+detective_icon = ExtResource("2_bjfho")
+goal_icon = ExtResource("3_6fbih")

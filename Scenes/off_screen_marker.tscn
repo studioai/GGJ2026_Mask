@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://djaqc5p0ewt22"]
+
+[ext_resource type="Script" uid="uid://dwrj61ntpes60" path="res://Scripts/off_screen_marker.gd" id="1_370kn"]
+[ext_resource type="Texture2D" uid="uid://b01s3xnr888t0" path="res://Resources/Art/UI/map_icon1.png" id="1_uddos"]
+
+[node name="OffScreenMarker" type="Node2D" unique_id=224542957]
+script = ExtResource("1_370kn")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=895465739]
+texture = ExtResource("1_uddos")

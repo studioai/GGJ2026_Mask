@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqafg7f08de6q"]
 
 [ext_resource type="Script" uid="uid://1xkhfplp2aic" path="res://Scripts/npc.gd" id="1_acqhf"]
-[ext_resource type="Texture2D" uid="uid://7kxm4f11ekkt" path="res://Resources/Art/NPC/NPC000.png" id="2_xxsvc"]
+[ext_resource type="Texture2D" uid="uid://btwvw8av0ca6j" path="res://Resources/Art/NPC/NPC000 (2).png" id="2_h1ryf"]
 [ext_resource type="PackedScene" uid="uid://b80h8gpmfcm3h" path="res://Scenes/icon_bubble.tscn" id="3_g6unj"]
 [ext_resource type="Texture2D" uid="uid://bic00xnd4p8hr" path="res://Resources/Art/Mask/mask_merged.png" id="3_h1ryf"]
 
@@ -12,13 +12,14 @@ radius = 4.0
 script = ExtResource("1_acqhf")
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=1940375274]
-texture = ExtResource("2_xxsvc")
-offset = Vector2(0, -10)
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("2_h1ryf")
+offset = Vector2(0, -500)
 hframes = 4
 
 [node name="MaskSprite" type="Sprite2D" parent="BodySprite" unique_id=292851693]
-position = Vector2(-2, -13.000002)
-scale = Vector2(0.025, 0.025)
+position = Vector2(0, -800)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_h1ryf")
 hframes = 4
 vframes = 11
@@ -28,4 +29,4 @@ frame = 4
 shape = SubResource("CircleShape2D_acqhf")
 
 [node name="IconBubble" parent="." unique_id=1086847967 instance=ExtResource("3_g6unj")]
-position = Vector2(8, -32)
+position = Vector2(0, -20)
