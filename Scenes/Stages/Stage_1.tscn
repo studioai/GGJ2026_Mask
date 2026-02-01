@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cfmentvggxejw"]
+
+[ext_resource type="PackedScene" uid="uid://b53ojyhemuvnf" path="res://Scenes/node_2d.tscn" id="1_ynsjk"]
+[ext_resource type="PackedScene" uid="uid://cqafg7f08de6q" path="res://Scenes/npc.tscn" id="2_nukl1"]
+
+[node name="Node2D" unique_id=126148182 instance=ExtResource("1_ynsjk")]
+
+[node name="Detective" parent="TileMapLayer" parent_id_path=PackedInt32Array(1382003819) index="3" unique_id=594747557]
+speed = 110.0
+
+[node name="NPC" parent="TileMapLayer" parent_id_path=PackedInt32Array(1382003819) index="6" unique_id=437939631 instance=ExtResource("2_nukl1")]
+position = Vector2(-231, -397)
+scale = Vector2(3, 3)
+mask_row = 6
+desired_mask_row = 1
