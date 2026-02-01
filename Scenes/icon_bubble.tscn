@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://0xl56bauseqw" path="res://Resources/Art/UI/speechBubble.png" id="2_w0i2w"]
 [ext_resource type="Texture2D" uid="uid://bic00xnd4p8hr" path="res://Resources/Art/Mask/mask_merged.png" id="3_s0jkd"]
 [ext_resource type="Texture2D" uid="uid://bh7q7kqufv86p" path="res://Resources/Art/UI/emote.png" id="4_1j7in"]
+[ext_resource type="Texture2D" uid="uid://bc0k2cqvv0bjb" path="res://Resources/Art/UI/ya_.png" id="4_6htga"]
 
 [node name="IconBubble" type="Node2D" unique_id=1086847967]
 z_index = 10
@@ -24,6 +25,8 @@ hframes = 4
 vframes = 7
 
 [node name="Arrow" type="Sprite2D" parent="Content" unique_id=1515317092]
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("4_6htga")
 
 [node name="MaskPlayer" type="Sprite2D" parent="Content" unique_id=769786966]
 scale = Vector2(0.025, 0.025)

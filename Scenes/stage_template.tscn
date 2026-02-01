@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dbr23txolfgu5"]
+
+[ext_resource type="PackedScene" uid="uid://lnwymddasp3o" path="res://Scenes/player.tscn" id="1_mws3b"]
+[ext_resource type="PackedScene" uid="uid://bjnxxw8haxcuj" path="res://Scenes/detective.tscn" id="2_we5do"]
+[ext_resource type="PackedScene" uid="uid://cqafg7f08de6q" path="res://Scenes/npc.tscn" id="3_awg2e"]
+[ext_resource type="PackedScene" uid="uid://f1ja23kagt2x" path="res://Scenes/goalArea.tscn" id="4_we5do"]
+
+[node name="Node2D" type="Node2D" unique_id=126148182]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1382003819]
+
+[node name="GoalArea" parent="TileMapLayer" unique_id=551947311 instance=ExtResource("4_we5do")]
+
+[node name="Player" parent="TileMapLayer" unique_id=247806807 instance=ExtResource("1_mws3b")]
+
+[node name="Detective" parent="TileMapLayer" unique_id=594747557 instance=ExtResource("2_we5do")]
+
+[node name="Receptionist" parent="TileMapLayer" unique_id=437939631 instance=ExtResource("3_awg2e")]
+is_receptionist = true

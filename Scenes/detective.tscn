@@ -23,6 +23,7 @@ vframes = 4
 shape = SubResource("CircleShape2D_64dh4")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=758081272]
+avoidance_enabled = true
 debug_enabled = true
 
 [node name="CatchArea" type="Area2D" parent="." unique_id=1378431947]
