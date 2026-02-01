@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://o3362fpc4r1a"]
+
+[ext_resource type="Script" uid="uid://nsaxqiquo2gf" path="res://Scripts/game_over.gd" id="1_ojehl"]
+
+[node name="GameOver" type="Control" unique_id=1379787119]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ojehl")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1995275718]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.72130203, 0.72130215, 0.72130203, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=61567164]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=277229822]
+layout_mode = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=93964080]
+layout_mode = 2
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=312961815]
+layout_mode = 2
+text = "Retry"
+
+[node name="TitleButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=435420113]
+layout_mode = 2
+text = "Go to title"

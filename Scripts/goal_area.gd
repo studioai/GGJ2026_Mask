@@ -1,22 +1,16 @@
 extends Area2D
 
-# 클리어 신호를 보낼 사용자 정의 시그널
-signal stage_cleared
+# [수정된 GoalArea.gd]
 
 func _ready():
-	# 플레이어가 들어오면 감지하도록 시그널 연결
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node2D):
-	# 감지된 물체가 '플레이어'인지 확인
 	if body.is_in_group("player"):
-		print("탈출 성공! 스테이지 클리어!")
+		print("탈출 성공!")
 		
-		# 방법 A: 여기서 바로 씬 전환
-		# get_tree().change_scene_to_file("res://scenes/ending_scene.tscn")
+		# 충돌을 끄지 않으면 페이드아웃 중에 여러 번 호출될 수 있음
+		$CollisionShape2D.set_deferred("disabled", true)
 		
-		# 방법 B: 게임 매니저에게 알리기 (추천)
-		# GameManager.game_clear() 
-		
-		# 임시 연출: 게임 멈추기
-		get_tree().paused = true
+		# 게임 매니저에게 "다음 스테이지로 가자"고 요청
+		GameManager.go_to_next_stage()
