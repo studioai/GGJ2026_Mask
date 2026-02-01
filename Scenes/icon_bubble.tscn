@@ -41,7 +41,7 @@ texture = ExtResource("4_1j7in")
 hframes = 3
 
 [node name="InputIcon" type="Sprite2D" parent="Content" unique_id=1179970423]
-position = Vector2(1, 7)
 scale = Vector2(0.006, 0.006)
 texture = ExtResource("6_v8u36")
+offset = Vector2(0, 1100)
 hframes = 2
