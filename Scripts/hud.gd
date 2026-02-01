@@ -20,7 +20,7 @@ func _create_markers():
 		add_child(marker)
 		# 형사 아이콘 적용
 		marker.setup(enemy, detective_icon)
-	
+		
 	# 2. 골 마커 생성 (그룹명: goal)
 	var goal = get_tree().get_first_node_in_group("goal")
 	if goal:
