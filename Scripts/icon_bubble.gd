@@ -43,11 +43,11 @@ func show_detective_chat(type: String, data = null, duration: float = 1.5):
 			else:
 				mask_npc.visible = true
 				mask_npc.frame = data * 4
-				mask_npc.position.x = -12
+				mask_npc.position.x = -6
 				
 				emote_icon.visible = true
 				emote_icon.frame = 1 # ?
-				emote_icon.position.x = 12
+				emote_icon.position.x = 6
 	
 	if Engine.is_editor_hint():
 		visible = true
@@ -82,11 +82,11 @@ func show_trade_ui(npc_mask: int, player_mask: int, is_receptionist: bool):
 
 		mask_player.visible = true
 		mask_player.frame = player_mask * 4
-		mask_player.position.x = -20 
+		mask_player.position.x = -8 
 		
 		mask_npc.visible = true
 		mask_npc.frame = npc_mask * 4
-		mask_npc.position.x = 20 
+		mask_npc.position.x = 8 
 
 func hide_bubble():
 	if Engine.is_editor_hint():
