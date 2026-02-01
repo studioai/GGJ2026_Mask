@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://bjnxxw8haxcuj"]
+[gd_scene format=3 uid="uid://hvtmqhibjewp"]
 
 [ext_resource type="Script" uid="uid://66gr14ywq5gw" path="res://Scripts/detective.gd" id="1_5vuio"]
 [ext_resource type="PackedScene" uid="uid://b80h8gpmfcm3h" path="res://Scenes/icon_bubble.tscn" id="2_8u120"]
-[ext_resource type="Texture2D" uid="uid://bx2v1a3b0ulir" path="res://Resources/Art/Player/Swordsman_lvl1_Walk_with_shadow.png" id="2_dmdfp"]
+[ext_resource type="Texture2D" uid="uid://cfhhoph7e2wml" path="res://Resources/Art/Police/Police__.png" id="2_dmdfp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_64dh4"]
 radius = 4.0
@@ -10,13 +10,106 @@ radius = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_86f0a"]
 radius = 8.0
 
+[sub_resource type="Animation" id="Animation_w7bri"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_k7jnt"]
+resource_name = "walk_down"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.2, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_ufg76"]
+resource_name = "walk_left"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.2, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 4]
+}
+
+[sub_resource type="Animation" id="Animation_i3i3l"]
+resource_name = "walk_rigjht"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.2, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 7]
+}
+
+[sub_resource type="Animation" id="Animation_ooixp"]
+resource_name = "walk_up"
+length = 0.46666667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mmop5"]
+_data = {
+&"RESET": SubResource("Animation_w7bri"),
+&"walk_down": SubResource("Animation_k7jnt"),
+&"walk_left": SubResource("Animation_ufg76"),
+&"walk_rigjht": SubResource("Animation_i3i3l"),
+&"walk_up": SubResource("Animation_ooixp")
+}
+
 [node name="Detective" type="CharacterBody2D" unique_id=594747557 groups=["enemy"]]
 script = ExtResource("1_5vuio")
+speed = null
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=78904581]
 texture = ExtResource("2_dmdfp")
 offset = Vector2(0, -10)
-hframes = 6
+hframes = 3
 vframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2016364008]
@@ -32,6 +125,7 @@ debug_enabled = true
 shape = SubResource("CircleShape2D_86f0a")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2045264425]
+libraries/ = SubResource("AnimationLibrary_mmop5")
 
 [node name="RecalculateTimer" type="Timer" parent="." unique_id=1663953320]
 wait_time = 0.1
