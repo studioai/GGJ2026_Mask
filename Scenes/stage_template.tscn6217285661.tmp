@@ -10,7 +10,6 @@
 [node name="Node2D" type="Node2D" unique_id=126148182]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1382003819]
-y_sort_enabled = true
 tile_set = ExtResource("1_awg2e")
 
 [node name="GoalArea" parent="TileMapLayer" unique_id=551947311 instance=ExtResource("4_we5do")]
@@ -26,5 +25,8 @@ position = Vector2(100, -1)
 position = Vector2(-2, -19)
 desired_mask_row = 1
 is_receptionist = true
+
+[node name="TileMap" type="TileMap" parent="TileMapLayer" unique_id=429592501]
+format = 2
 
 [node name="HUD" parent="." unique_id=895827447 instance=ExtResource("6_myfgw")]
