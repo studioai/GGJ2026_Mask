@@ -1881,17 +1881,19 @@ tile_map_data = PackedByteArray("AAABAAAABQAHAAwAAAAAAAIABQADAA4AAAAAAAAABQADAAw
 tile_set = ExtResource("3_u7krg")
 
 [node name="GoalArea" parent="TileMapLayer" index="1" unique_id=551947311]
-position = Vector2(-655, 206)
+position = Vector2(-585, 149.00002)
+scale = Vector2(3, 3)
 
 [node name="Player" parent="TileMapLayer" index="2" unique_id=247806807]
-position = Vector2(-117, 4)
+position = Vector2(-64, -391.00003)
 scale = Vector2(3, 3)
 
 [node name="Detective" parent="TileMapLayer" index="3" unique_id=594747557]
-position = Vector2(574, 307)
+position = Vector2(190, -486)
 scale = Vector2(3, 3)
 
 [node name="Receptionist" parent="TileMapLayer" index="4" unique_id=437939631]
+position = Vector2(-63, -496)
 scale = Vector2(3, 3)
 
 [node name="TileMap" parent="TileMapLayer" index="5" unique_id=429592501]
