@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://o3362fpc4r1a"]
 
 [ext_resource type="Script" uid="uid://nsaxqiquo2gf" path="res://Scripts/game_over.gd" id="1_ojehl"]
+[ext_resource type="Texture2D" uid="uid://bbv31bd0mbaci" path="res://Resources/Art/UI/gameover.png" id="2_8fo1c"]
 
 [node name="GameOver" type="Control" unique_id=1379787119]
 layout_mode = 3
@@ -11,14 +12,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ojehl")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1995275718]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=114952852]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.72130203, 0.72130215, 0.72130203, 1)
+texture = ExtResource("2_8fo1c")
+expand_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=61567164]
 layout_mode = 1
@@ -33,11 +35,6 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=277229822]
-layout_mode = 2
-text = "GAME OVER"
-horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=93964080]
 layout_mode = 2

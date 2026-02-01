@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bhld64aoheo6h"]
 
 [ext_resource type="Script" uid="uid://bf462qejdb03m" path="res://Scripts/title_scene.gd" id="1_68ljo"]
+[ext_resource type="Texture2D" uid="uid://d8ycl2cobqgq" path="res://Resources/Art/UI/GGJ.png" id="2_b6ftn"]
 
 [node name="TitleScene" type="Control" unique_id=38705562]
 layout_mode = 3
@@ -11,38 +12,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_68ljo")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1181678878]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=483877763]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.54560786, 0.54643464, 1)
+texture = ExtResource("2_b6ftn")
+expand_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1315953083]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -53.0
-offset_top = -20.0
-offset_right = 53.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=1945972045]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 48
-text = "MASK ESCAPE"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=692813434]
-layout_mode = 2
+[node name="StartButton" type="Button" parent="." unique_id=692813434]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 420.0
+offset_right = 440.0
+offset_bottom = 451.0
 text = "START
 "
