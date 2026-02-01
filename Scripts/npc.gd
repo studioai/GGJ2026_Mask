@@ -70,35 +70,34 @@ func complete_reception():
 func update_bubble_ui():
 	if not icon_bubble: return 
 	
-	# [에디터 모드]
 	if Engine.is_editor_hint():
 		var show_mask = desired_mask_row if not is_receptionist else mask_row
-		icon_bubble.show_detective_chat("mask", show_mask)
+		# 에디터에선 시간 의미 없음
+		icon_bubble.show_detective_chat("mask", show_mask, 0) 
 		return
 
-	# [게임 런타임]
 	if reception_finished or (not is_receptionist and mask_row == desired_mask_row):
 		icon_bubble.hide_bubble()
 		return
 	
 	if nearby_player:
-		# [핵심] 교환 조건 검사
 		var can_trade = false
 		
 		if is_receptionist:
 			can_trade = true
-		# 일반 NPC는 내가 원하는 가면을 플레이어가 썼을 때만 거래 가능
 		elif nearby_player.current_mask_row == desired_mask_row:
 			can_trade = true
 			
 		if can_trade:
+			# 교환 UI는 원래 영구 표시함수 사용
 			icon_bubble.show_trade_ui(mask_row, nearby_player.current_mask_row, is_receptionist)
 		else:
-			# 조건이 안 맞으면 그냥 "난 이걸 원해" 아이콘만 띄움
-			icon_bubble.show_detective_chat("mask", desired_mask_row)
+			# [수정] 조건 불만족 시 띄우는 '원하는 가면'은 0초(영구) 지속
+			icon_bubble.show_detective_chat("mask", desired_mask_row, 0)
 	else:
+		# [수정] 플레이어가 없을 때 띄우는 '원하는 가면'도 0초(영구) 지속
 		var show_mask = desired_mask_row if not is_receptionist else mask_row
-		icon_bubble.show_detective_chat("mask", show_mask)
+		icon_bubble.show_detective_chat("mask", show_mask, 0)
 
 func _update_visual():
 	if not mask_sprite: return
