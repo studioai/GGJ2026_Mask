@@ -128,7 +128,7 @@ shape = SubResource("CircleShape2D_f60y1")
 libraries/ = SubResource("AnimationLibrary_8erm5")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1277440350]
-zoom = Vector2(4, 4)
+zoom = Vector2(2, 2)
 process_callback = 0
 limit_enabled = false
 position_smoothing_speed = 1.0
