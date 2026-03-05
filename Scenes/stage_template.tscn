@@ -9,22 +9,28 @@
 
 [node name="Node2D" type="Node2D" unique_id=126148182]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1382003819]
+[node name="TileMapLayer01" type="TileMapLayer" parent="." unique_id=1382003819]
 y_sort_enabled = true
 tile_set = ExtResource("1_awg2e")
 
-[node name="GoalArea" parent="TileMapLayer" unique_id=551947311 instance=ExtResource("4_we5do")]
+[node name="TileMapLayer02" type="TileMapLayer" parent="." unique_id=373170937]
+tile_set = ExtResource("1_awg2e")
+
+[node name="TileMapLayer03" type="TileMapLayer" parent="." unique_id=98311530]
+tile_set = ExtResource("1_awg2e")
+
+[node name="HUD" parent="." unique_id=895827447 instance=ExtResource("6_myfgw")]
+
+[node name="GoalArea" parent="." unique_id=551947311 instance=ExtResource("4_we5do")]
 position = Vector2(-128, 58)
 
-[node name="Player" parent="TileMapLayer" unique_id=247806807 instance=ExtResource("1_mws3b")]
+[node name="Player" parent="." unique_id=247806807 instance=ExtResource("1_mws3b")]
 position = Vector2(-4, 0)
 
-[node name="Detective" parent="TileMapLayer" unique_id=594747557 instance=ExtResource("2_we5do")]
+[node name="Detective" parent="." unique_id=594747557 instance=ExtResource("2_we5do")]
 position = Vector2(100, -1)
 
-[node name="Receptionist" parent="TileMapLayer" unique_id=437939631 instance=ExtResource("3_awg2e")]
+[node name="Receptionist" parent="." unique_id=437939631 instance=ExtResource("3_awg2e")]
 position = Vector2(-2, -19)
 desired_mask_row = 1
 is_receptionist = true
-
-[node name="HUD" parent="." unique_id=895827447 instance=ExtResource("6_myfgw")]

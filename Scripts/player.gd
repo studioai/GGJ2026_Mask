@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed = 100.0
+@export var speed = 50.0
 @export var brake = 0.2
 
 # -1: 가면 없음, 0~N: 가면 인덱스

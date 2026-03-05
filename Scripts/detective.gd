@@ -4,7 +4,7 @@ class_name Detective
 enum State { INVESTIGATE, CHASE }
 var current_state = State.INVESTIGATE
 
-@export var speed = 20.0
+@export var speed = 55
 var target_mask_id: int = -1
 var current_target: Node2D = null
 var is_busy: bool = false 
