@@ -4,7 +4,7 @@ class_name Detective
 enum State { INVESTIGATE, CHASE }
 var current_state = State.INVESTIGATE
 
-@export var speed = 55
+@export var speed = 70
 var target_mask_id: int = -1
 var current_target: Node2D = null
 var is_busy: bool = false 
@@ -40,7 +40,7 @@ func _ready():
 	catch_area.monitoring = false
 	
 	# 타이머 연결 (10초 후 등장)
-	get_tree().create_timer(10.0).timeout.connect(start_detective_action)
+	get_tree().create_timer(2.5).timeout.connect(start_detective_action)
 	
 	# 접수원 신호 연결 (가면 받으면 등장)
 	var npcs = get_tree().get_nodes_in_group("npc")

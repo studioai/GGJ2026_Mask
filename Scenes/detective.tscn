@@ -103,6 +103,7 @@ _data = {
 }
 
 [node name="Detective" type="CharacterBody2D" unique_id=594747557 groups=["enemy"]]
+motion_mode = 1
 script = ExtResource("1_5vuio")
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=78904581]
@@ -116,7 +117,11 @@ vframes = 4
 shape = SubResource("CircleShape2D_64dh4")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=758081272]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
 avoidance_enabled = true
+radius = 20.0
+debug_enabled = true
 
 [node name="CatchArea" type="Area2D" parent="." unique_id=1378431947]
 

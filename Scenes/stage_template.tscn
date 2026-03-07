@@ -7,17 +7,30 @@
 [ext_resource type="PackedScene" uid="uid://f1ja23kagt2x" path="res://Scenes/goalArea.tscn" id="4_we5do"]
 [ext_resource type="PackedScene" uid="uid://cuyknnc6bt3ic" path="res://Scenes/hud.tscn" id="6_myfgw"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_myfgw"]
+vertices = PackedVector2Array(287, 113.88281, -313.95313, 107.109375, -313.03906, -110.03125, 287, -111.96094)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-323, -120, -324, 117, 297, 124, 297, -122)])
+parsed_geometry_type = 1
+parsed_collision_mask = 4278190081
+
 [node name="Node2D" type="Node2D" unique_id=126148182]
 
-[node name="TileMapLayer01" type="TileMapLayer" parent="." unique_id=1382003819]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=995454546]
+navigation_polygon = SubResource("NavigationPolygon_myfgw")
+
+[node name="TileMapLayer01" type="TileMapLayer" parent="NavigationRegion2D" unique_id=1382003819]
 y_sort_enabled = true
 tile_set = ExtResource("1_awg2e")
+navigation_enabled = false
 
-[node name="TileMapLayer02" type="TileMapLayer" parent="." unique_id=373170937]
+[node name="TileMapLayer02" type="TileMapLayer" parent="NavigationRegion2D" unique_id=373170937]
 tile_set = ExtResource("1_awg2e")
+navigation_enabled = false
 
-[node name="TileMapLayer03" type="TileMapLayer" parent="." unique_id=98311530]
+[node name="TileMapLayer03" type="TileMapLayer" parent="NavigationRegion2D" unique_id=98311530]
 tile_set = ExtResource("1_awg2e")
+navigation_enabled = false
 
 [node name="HUD" parent="." unique_id=895827447 instance=ExtResource("6_myfgw")]
 
