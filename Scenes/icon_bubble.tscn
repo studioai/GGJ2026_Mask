@@ -36,12 +36,14 @@ hframes = 4
 vframes = 11
 
 [node name="EmoteIcon" type="Sprite2D" parent="Content" unique_id=1904734487]
-scale = Vector2(0.013, 0.013)
+position = Vector2(-2.3841858e-07, 3.0000002)
+scale = Vector2(0.020785715, 0.020785714)
 texture = ExtResource("4_1j7in")
 hframes = 3
 
 [node name="InputIcon" type="Sprite2D" parent="Content" unique_id=1179970423]
-scale = Vector2(0.006, 0.006)
+position = Vector2(-3.5762787e-07, -3.999999)
+scale = Vector2(0.012214284, 0.013418363)
 texture = ExtResource("6_v8u36")
 offset = Vector2(0, 1100)
 hframes = 2

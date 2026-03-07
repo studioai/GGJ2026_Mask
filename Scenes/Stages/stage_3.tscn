@@ -32,7 +32,7 @@ position = Vector2(-413, -372)
 position = Vector2(-412, -372)
 
 [node name="Receptionist" parent="." index="5" unique_id=437939631]
-position = Vector2(-309, -257)
+position = Vector2(-334, -174)
 mask_row = 4
 
 [node name="NPC" parent="." index="6" unique_id=490323302 instance=ExtResource("2_srrot")]
